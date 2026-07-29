@@ -4,9 +4,9 @@ INSERT INTO SUBSCRIPTION_PLANS (name, monthly_cost_usd, max_speed_mbps) VALUES
 ('Premium', 60, 100);
 
 INSERT INTO ACCOUNTS (plan_id, customer_name, account_pin, address) VALUES
-(3, 'Sarah Branden', 1234, '1428 Elm St, Springfield'),
-(1, 'Walter White', 5678, '308 Negra Arroyo Lane, Albuquerque'),
-(2, 'Ellen Ripley', 9999, 'LV-426 Nostromo Ave, Seattle');
+(3, 'Sarah Branden', '1234', '1428 Elm St, Springfield'),
+(1, 'Walter White', '5678', '308 Negra Arroyo Lane, Albuquerque'),
+(2, 'Ellen Ripley', '9999', 'LV-426 Nostromo Ave, Seattle');
 
 
 --to add more error logs to fit the demo
