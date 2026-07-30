@@ -9,7 +9,7 @@ CREATE TABLE ACCOUNTS (
     account_id INTEGER PRIMARY KEY AUTOINCREMENT,
     plan_id INTEGER NOT NULL,
     customer_name TEXT NOT NULL,
-    account_pin INTEGER NOT NULL,
+    account_pin TEXT NOT NULL,
     address TEXT NOT NULL,
     FOREIGN KEY (plan_id) REFERENCES SUBSCRIPTION_PLANS(plan_id)
 );
