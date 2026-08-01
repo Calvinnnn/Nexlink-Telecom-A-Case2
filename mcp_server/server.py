@@ -6,7 +6,7 @@ import sys
 from typing import Any, Dict, List, Optional
 
 from dotenv import load_dotenv
-
+from rag.tool import handle_search_knowledge_base
 # Load .env directly here (not just in agent.py) so NEXLINK_DB_PATH and any
 # other env vars are respected regardless of how the server is launched --
 # `python server.py`, `mcp dev server.py`, or spawned as a subprocess by
@@ -53,6 +53,22 @@ mcp = FastMCP(
 def get_account_summary(account_id: int) -> str:
     return tools_read.handle_get_account_summary(account_id)
 
+
+@mcp.tool(
+    
+    name="search_knowledge_base",
+    description=(
+            "Search the NOC troubleshooting reference for guidance on error codes, "
+            "RMA eligibility, and escalation procedures. Use this before opening a "
+            "ticket or dispatch when equipment diagnostics show an error you don't "
+            "immediately recognize."
+        ),
+    )
+def search_knowledge_base(query: str, top_k: int = 3, ctx: Context = None) -> str:        
+    # Read-only and not account-scoped, so no PIN verification required --
+    # same tier of access as list_support_tickets / get_equipment_diagnostics.
+    session_role = auth.get_session_role(ctx) if hasattr(auth, "get_session_role") else "any"
+    return handle_search_knowledge_base(query=query, top_k=top_k, session_role=session_role)
 
 @mcp.tool(
     name="list_support_tickets",
