@@ -1,9 +1,11 @@
 import sqlite3
 import os
 
-DB_PATH = 'nextlink.db'
-SCHEMA_PATH = 'schema.sql'
-SEED_PATH = 'seed.sql'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+DB_PATH = os.path.join(BASE_DIR, 'nexlink.db')
+SCHEMA_PATH = os.path.join(BASE_DIR, 'schema.sql')
+SEED_PATH = os.path.join(BASE_DIR, 'seed.sql')
 
 def reset_database():
 
@@ -26,7 +28,7 @@ def reset_database():
             cursor.executescript(seed_file.read())
 
         conn.commit()
-        print("Success: Nextlink database rebuilt and seeded perfectly.")
+        print("Success: Nextink database rebuilt and seeded perfectly.")
 
     except FileNotFoundError as e:
         print(f"Error: Missing SQL file. Ensure both schema.sql and seed.sql are in the same folder. ({e})")
